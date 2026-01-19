@@ -3,7 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
+	"strings"
 )
 
 func GameMenu() {
@@ -12,6 +14,7 @@ func GameMenu() {
 	input := getUserInput()
 	if input == "1" {
 		fmt.Println("Вы начали игру!")
+		fmt.Println(getWord())
 	} else if input == "2" {
 		os.Exit(0)
 	} else {
@@ -25,4 +28,13 @@ func getUserInput() string {
 	scanner.Scan()
 	text := scanner.Text()
 	return text
+}
+
+func getWord() []string {
+	data, err := os.ReadFile("words.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	words := strings.Split(string(data), "\r\n")
+	return words
 }
