@@ -12,15 +12,15 @@ func GameMenu() {
 	fmt.Println("Добро пожаловать в игру Виселица!\n 1.Начать игру\n 2.Выйти из игры")
 	fmt.Print("Введите значение: ")
 	input := getUserInput()
-	if input == "1" {
+	switch input {
+	case "1":
 		fmt.Println("Вы начали игру!")
 		fmt.Println(getWord())
-	} else if input == "2" {
+	case "2":
 		os.Exit(0)
-	} else {
+	default:
 		fmt.Println("Вы ввели неверное значение")
 	}
-
 }
 
 func getUserInput() string {
