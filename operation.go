@@ -4,18 +4,19 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"math/rand/v2"
 	"os"
 	"strings"
 )
 
-func GameMenu() {
+func gameMenu() {
 	fmt.Println("Добро пожаловать в игру Виселица!\n 1.Начать игру\n 2.Выйти из игры")
 	fmt.Print("Введите значение: ")
 	input := getUserInput()
 	switch input {
 	case "1":
 		fmt.Println("Вы начали игру!")
-		fmt.Println(getWord())
+		fmt.Println(getRandomElemen())
 	case "2":
 		os.Exit(0)
 	default:
@@ -30,11 +31,12 @@ func getUserInput() string {
 	return text
 }
 
-func getWord() []string {
+func getRandomElemen() string {
 	data, err := os.ReadFile("words.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	words := strings.Split(string(data), "\r\n")
-	return words
+	randomIndex := rand.IntN(len(words))
+	return words[randomIndex]
 }
