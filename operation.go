@@ -10,9 +10,7 @@ import (
 )
 
 func gameMenu() {
-	fmt.Println("Добро пожаловать в игру Виселица!\n 1.Начать игру\n 2.Выйти из игры")
-	fmt.Print("Введите значение: ")
-	input := getUserInput()
+	input := getUserInput("Введите значение:\n 1.Начать игру\n 2.Выйти из игры", validationMenu)
 	switch input {
 	case "1":
 		fmt.Println("Вы начали игру!")
@@ -24,11 +22,21 @@ func gameMenu() {
 	}
 }
 
-func getUserInput() string {
+func getUserInput(promt string, validationFunc func(string) bool) string {
 	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	text := scanner.Text()
-	return text
+	for {
+		fmt.Println(promt)
+		scanner.Scan()
+		text := scanner.Text()
+		if validationFunc(text) {
+			return text
+		}
+		fmt.Println("Вы ввели неверное значение, попробуйте еще раз")
+	}
+}
+
+func validationMenu(choise string) bool {
+	return choise == "1" || choise == "2"
 }
 
 func getRandomElemen() string {
