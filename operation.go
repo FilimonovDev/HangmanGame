@@ -7,6 +7,7 @@ import (
 	"math/rand/v2"
 	"os"
 	"strings"
+	"unicode/utf8"
 )
 
 func gameMenu() {
@@ -28,10 +29,16 @@ func gameSession() {
 	attempts := 6
 
 	for attempts > 0 {
+		fmt.Println(hiddenWord)
 		fmt.Println(displayWord(hiddenWord, enteredLetters))
 		fmt.Printf("У вас осталось %d попыток\n", attempts)
-		letter := getUserInput("Введите букву:", validationLetter)
-		fmt.Println(letter)
+		input := strings.ToLower(getUserInput("Введите букву:", validationLetter))
+		letter := []rune(input)[0]
+		if enteredLetters[letter] {
+			fmt.Println("Вы уже вводили эту букву")
+		} else {
+			enteredLetters[letter] = true
+		}
 
 	}
 }
@@ -42,7 +49,7 @@ func getUserInput(promt string, validationFunc func(string) bool) string {
 		fmt.Println(promt)
 		scanner.Scan()
 		text := scanner.Text()
-		if validationFunc(text) {
+		if validationFunc(text) && utf8.RuneCountInString(text) == 1 {
 			return text
 		}
 		fmt.Println("Вы ввели неверное значение, попробуйте еще раз")
