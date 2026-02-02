@@ -40,6 +40,13 @@ func gameSession() {
 			enteredLetters[letter] = true
 		}
 
+		if strings.ContainsRune(hiddenWord, letter) {
+			fmt.Println("Такая буква есть в слове!")
+		} else {
+			fmt.Println("Такой буквы нет в слове")
+			attempts--
+		}
+
 	}
 }
 
