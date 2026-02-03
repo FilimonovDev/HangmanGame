@@ -42,6 +42,11 @@ func gameSession() {
 
 		if strings.ContainsRune(hiddenWord, letter) {
 			fmt.Println("Такая буква есть в слове!")
+			if getGuessedWord(hiddenWord, enteredLetters) {
+				fmt.Println("Поздравляю, вы отгадали слово!")
+				fmt.Println("Загаданное слово: ", hiddenWord)
+				return
+			}
 		} else {
 			fmt.Println("Такой буквы нет в слове")
 			attempts--
@@ -93,4 +98,13 @@ func displayWord(word string, letters map[rune]bool) string {
 	}
 	return string(result)
 
+}
+
+func getGuessedWord(word string, letters map[rune]bool) bool {
+	for _, value := range word {
+		if !letters[value] {
+			return false
+		}
+	}
+	return true
 }
