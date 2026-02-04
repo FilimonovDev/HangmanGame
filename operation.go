@@ -53,6 +53,10 @@ func gameSession() {
 		}
 
 	}
+	if attempts == 0 {
+		fmt.Println("Вы проиграли!")
+		fmt.Println("Загаданное слово :", hiddenWord)
+	}
 }
 
 func getUserInput(promt string, validationFunc func(string) bool) string {
