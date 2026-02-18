@@ -26,10 +26,11 @@ func gameMenu() {
 func gameSession() {
 	hiddenWord := getRandomElemen()
 	enteredLetters := make(map[rune]bool)
-	attempts := 0
+	mistakes := 0
+	attempts := 6
 
-	for attempts < 6 {
-		printHangman(attempts)
+	for mistakes < 6 {
+		printHangman(mistakes)
 		fmt.Println(hiddenWord)
 		fmt.Println(displayWord(hiddenWord, enteredLetters))
 		fmt.Printf("У вас осталось %d попыток\n", attempts)
@@ -50,12 +51,13 @@ func gameSession() {
 			}
 		} else {
 			fmt.Println("Такой буквы нет в слове")
-			attempts++
+			attempts--
+			mistakes++
 		}
 
 	}
-	if attempts == 6 {
-		printHangman(attempts)
+	if mistakes == 6 {
+		printHangman(mistakes)
 		fmt.Println("Вы проиграли!")
 		fmt.Println("Загаданное слово :", hiddenWord)
 	}
