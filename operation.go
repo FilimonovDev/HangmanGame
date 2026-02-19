@@ -14,7 +14,7 @@ func gameMenu() {
 	input := getUserInput("Нажмите 1, чтобы начать игру, либо 2 чтобы выйти:\n 1.Начать игру\n 2.Выйти из игры", validationMenu)
 	switch input {
 	case "1":
-		fmt.Println("Вы начали игру!")
+		fmt.Println("Добро пожаловать в игру Виселица!")
 		gameSession()
 	case "2":
 		os.Exit(0)
@@ -30,11 +30,12 @@ func gameSession() {
 	attempts := 6
 
 	for mistakes < 6 {
+		fmt.Println("------------------------------")
 		printHangman(mistakes)
 		fmt.Println(hiddenWord)
 		fmt.Println(displayWord(hiddenWord, enteredLetters))
 		fmt.Printf("У вас осталось %d попыток\n", attempts)
-		input := strings.ToLower(getUserInput("Введите букву:", validationLetter))
+		input := strings.ToLower(getUserInput("Введите букву русского языка:", validationLetter))
 		letter := []rune(input)[0]
 		if enteredLetters[letter] {
 			fmt.Println("Вы уже вводили эту букву")
@@ -47,19 +48,19 @@ func gameSession() {
 			if getGuessedWord(hiddenWord, enteredLetters) {
 				fmt.Println("Поздравляю, вы отгадали слово!")
 				fmt.Println("Загаданное слово: ", hiddenWord)
-				return
+				gameMenu()
 			}
 		} else {
 			fmt.Println("Такой буквы нет в слове")
 			attempts--
 			mistakes++
 		}
-
 	}
 	if mistakes == 6 {
 		printHangman(mistakes)
 		fmt.Println("Вы проиграли!")
 		fmt.Println("Загаданное слово :", hiddenWord)
+		gameMenu()
 	}
 }
 
