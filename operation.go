@@ -30,7 +30,7 @@ func gameSession() {
 	attempts := 6
 
 	for mistakes < 6 {
-		fmt.Println("------------------------------")
+		fmt.Println("---------------------------------")
 		printHangman(mistakes)
 		fmt.Println(hiddenWord)
 		fmt.Println(displayWord(hiddenWord, enteredLetters))
@@ -41,19 +41,18 @@ func gameSession() {
 			fmt.Println("Вы уже вводили эту букву")
 		} else {
 			enteredLetters[letter] = true
-		}
-
-		if strings.ContainsRune(hiddenWord, letter) {
-			fmt.Println("Такая буква есть в слове!")
-			if getGuessedWord(hiddenWord, enteredLetters) {
-				fmt.Println("Поздравляю, вы отгадали слово!")
-				fmt.Println("Загаданное слово: ", hiddenWord)
-				gameMenu()
+			if strings.ContainsRune(hiddenWord, letter) {
+				fmt.Println("Такая буква есть в слове!")
+				if getGuessedWord(hiddenWord, enteredLetters) {
+					fmt.Println("Поздравляю, вы отгадали слово!")
+					fmt.Println("Загаданное слово: ", hiddenWord)
+					gameMenu()
+				}
+			} else {
+				fmt.Println("Такой буквы нет в слове")
+				attempts--
+				mistakes++
 			}
-		} else {
-			fmt.Println("Такой буквы нет в слове")
-			attempts--
-			mistakes++
 		}
 	}
 	if mistakes == 6 {
