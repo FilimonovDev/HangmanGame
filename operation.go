@@ -32,7 +32,6 @@ func gameSession() {
 	for mistakes < 6 {
 		fmt.Println("---------------------------------")
 		printHangman(mistakes)
-		fmt.Println(hiddenWord)
 		fmt.Println(displayWord(hiddenWord, enteredLetters))
 		fmt.Printf("У вас осталось %d попыток\n", attempts)
 		input := strings.ToLower(getUserInput("Введите букву русского языка:", validationLetter))
